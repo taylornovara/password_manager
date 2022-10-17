@@ -1,11 +1,13 @@
 """A password generator using tkinter."""
 import tkinter
+from tkinter import messagebox
 import char_list
 import random
 
 
 # Functions
 def save_password():
+    messagebox.showinfo(title="MyPass | Password Manager", message="Your information was saved.", icon="info")
     with open("data.txt", "a") as data:
         data.write(f"{website.get()} | {email.get()} | {password.get()} \n")
         website_entry.delete(0, "end")
@@ -19,7 +21,7 @@ def generate_password():
 
 # Creates our window instance and sets title
 window = tkinter.Tk()
-window.title("Password Manager")
+window.title("MyPass | Password Manager")
 window.config(padx=50, pady=50)
 
 # Creates our logo
@@ -27,6 +29,10 @@ canvas = tkinter.Canvas(height=200, width=200)
 logo_img = tkinter.PhotoImage(file="logo.png")
 canvas.create_image(100, 100, image=logo_img)
 canvas.grid(row=0, column=1)
+
+# Creates our icon
+icon = tkinter.PhotoImage(file="logo.png")
+window.iconphoto(False, icon)
 
 # Labels
 website_label = tkinter.Label(text="Website:")
