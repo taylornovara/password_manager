@@ -7,12 +7,17 @@ import random
 
 # Functions
 def save_password():
-    messagebox.showinfo(title="MyPass | Password Manager", message="Your information was saved.", icon="info")
-    with open("data.txt", "a") as data:
-        data.write(f"{website.get()} | {email.get()} | {password.get()} \n")
-        website_entry.delete(0, "end")
-        email_entry.delete(0, "end")
-        password_entry.delete(0, "end")
+    # If/else requiring the user to fill all text fields.
+    if website.get() and email.get() and password.get():
+        messagebox.showinfo(title="MyPass | Password Manager", message="Confirmed: Your information was saved.",
+                            icon="info")
+        with open("data.txt", "a") as data:
+            data.write(f"{website.get()} | {email.get()} | {password.get()} \n")
+            website_entry.delete(0, "end")
+            email_entry.delete(0, "end")
+            password_entry.delete(0, "end")
+    else:
+        messagebox.showerror(title="MyPass | Password Manager", message="Error: All fields are required", icon="error")
 
 
 def generate_password():
