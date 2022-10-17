@@ -3,6 +3,7 @@ import tkinter
 from tkinter import messagebox
 import char_list
 import random
+import pyperclip
 
 
 # Functions
@@ -48,6 +49,7 @@ def generate_password():
     random_password = "".join(password_list)
 
     password_entry.insert(0, random_password)
+    pyperclip.copy(random_password)
 
 
 # Creates our window instance and sets title
