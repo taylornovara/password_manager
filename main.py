@@ -7,6 +7,8 @@ import random
 
 # Functions
 def save_password():
+    """Writes the user password to data.txt file"""
+
     # If/else requiring the user to fill all text fields.
     if website.get() and email.get() and password.get():
         messagebox.showinfo(title="MyPass | Password Manager", message="Confirmed: Your information was saved.",
@@ -21,7 +23,31 @@ def save_password():
 
 
 def generate_password():
-    pass
+    """Generates a random password using letters, numbers, and symbols"""
+
+    # Generates random numbers
+    num_random_letters = random.randint(8, 10)
+    num_random_numbers = random.randint(2, 4)
+    num_random_symbols = random.randint(2, 4)
+
+    # Empty list.
+    password_list = []
+
+    # Loops through the letters, numbers, and symbols from char_list and appends it to our password_list.
+    for char in range(num_random_letters):
+        password_list.append(char_list.letters[char])
+    for char in range(num_random_numbers):
+        password_list.append(char_list.numbers[char])
+    for char in range(num_random_symbols):
+        password_list.append(char_list.symbols[char])
+
+    # Shuffles our password_list.
+    random.shuffle(password_list)
+
+    # Joins the password_list and stores it in random_password.
+    random_password = "".join(password_list)
+
+    password_entry.insert(0, random_password)
 
 
 # Creates our window instance and sets title
