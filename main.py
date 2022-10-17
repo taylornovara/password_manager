@@ -1,5 +1,21 @@
 """A password generator using tkinter."""
 import tkinter
+import char_list
+import random
+
+
+# Functions
+def save_password():
+    with open("data.txt", "a") as data:
+        data.write(f"{website.get()} | {email.get()} | {password.get()} \n")
+        website_entry.delete(0, "end")
+        email_entry.delete(0, "end")
+        password_entry.delete(0, "end")
+
+
+def generate_password():
+    pass
+
 
 # Creates our window instance and sets title
 window = tkinter.Tk()
@@ -21,18 +37,35 @@ password_label = tkinter.Label(text="Password:")
 password_label.grid(row=3, column=0)
 
 # Entries
-website_entry = tkinter.Entry(width=37)
+
+# Creates a string instance, so we can store the user input.
+website = tkinter.StringVar()
+
+# User input is saved into the text variable as a string.
+website_entry = tkinter.Entry(width=37, textvariable=website)
 website_entry.grid(row=1, column=1, columnspan=2)
+
+# Focuses the cursor in the website Entry
 website_entry.focus()
-email_entry = tkinter.Entry(width=37)
+
+# Creates a string instance, so we can store the user input.
+email = tkinter.StringVar()
+
+# User input is saved into the text variable as a string.
+email_entry = tkinter.Entry(width=37, textvariable=email)
 email_entry.grid(row=2, column=1, columnspan=2)
-password_entry = tkinter.Entry(width=21)
+
+# Creates a string instance, so we can store the user input.
+password = tkinter.StringVar()
+
+# User input is saved into the text variable as a string.
+password_entry = tkinter.Entry(width=21, textvariable=password, show="*")
 password_entry.grid(row=3, column=1)
 
 # Buttons
-generate_password_button = tkinter.Button(text="Generate Password", width=11)
+generate_password_button = tkinter.Button(text="Generate Password", width=11, command=generate_password)
 generate_password_button.grid(row=3, column=2)
-add_button = tkinter.Button(text="Add", width=35)
+add_button = tkinter.Button(text="Add", width=35, command=save_password)
 add_button.grid(row=4, column=1, columnspan=2)
 
 # Keeps program window open
