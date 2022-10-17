@@ -8,7 +8,7 @@ import pyperclip
 
 # Functions
 def save_password():
-    """Writes the user password to data.txt file"""
+    """Writes the user password to data.txt file."""
 
     # If/else requiring the user to fill all text fields.
     if website.get() and email.get() and password.get():
@@ -24,9 +24,9 @@ def save_password():
 
 
 def generate_password():
-    """Generates a random password using letters, numbers, and symbols"""
+    """Generates a random password using letters, numbers, and symbols."""
 
-    # Generates random numbers
+    # Generates random numbers.
     num_random_letters = random.randint(8, 10)
     num_random_numbers = random.randint(2, 4)
     num_random_symbols = random.randint(2, 4)
@@ -52,22 +52,22 @@ def generate_password():
     pyperclip.copy(random_password)
 
 
-# Creates our window instance and sets title
+# Creates our window instance and sets title.
 window = tkinter.Tk()
 window.title("MyPass | Password Manager")
 window.config(padx=50, pady=50)
 
-# Creates our logo
+# Creates our logo.
 canvas = tkinter.Canvas(height=200, width=200)
 logo_img = tkinter.PhotoImage(file="logo.png")
 canvas.create_image(100, 100, image=logo_img)
 canvas.grid(row=0, column=1)
 
-# Creates our icon
+# Creates our icon.
 icon = tkinter.PhotoImage(file="logo.png")
 window.iconphoto(False, icon)
 
-# Labels
+# Labels.
 website_label = tkinter.Label(text="Website:")
 website_label.grid(row=1, column=0)
 email_label = tkinter.Label(text="Email:")
@@ -84,7 +84,7 @@ website = tkinter.StringVar()
 website_entry = tkinter.Entry(width=37, textvariable=website)
 website_entry.grid(row=1, column=1, columnspan=2)
 
-# Focuses the cursor in the website Entry
+# Focuses the cursor in the website Entry.
 website_entry.focus()
 
 # Creates a string instance, so we can store the user input.
@@ -107,5 +107,5 @@ generate_password_button.grid(row=3, column=2)
 add_button = tkinter.Button(text="Add", width=35, command=save_password)
 add_button.grid(row=4, column=1, columnspan=2)
 
-# Keeps program window open
+# Keeps program window open.
 window.mainloop()
