@@ -1,25 +1,56 @@
 """A password generator using tkinter."""
+
 import tkinter
 from tkinter import messagebox
 import char_list
 import random
 import pyperclip
+import json
 
 
 # Functions
 def save_password():
-    """Writes the user password to data.txt file."""
+    """Writes the user password to data.json file."""
+
+    # Creates a new dictionary with the user inputs.
+    new_data = {
+        website.get(): {
+            "email": email.get(),
+            "password": password.get()
+        }
+    }
 
     # If/else requiring the user to fill all text fields.
     if website.get() and email.get() and password.get():
+
+        # Confirmation message.
         messagebox.showinfo(title="MyPass | Password Manager", message="Confirmed: Your information was saved.",
                             icon="info")
-        with open("data.txt", "a") as data:
-            data.write(f"{website.get()} | {email.get()} | {password.get()} \n")
+
+        try:
+            with open("data.json", "r") as data_file:
+                # Loads (reads) the existing data.
+                data = json.load(data_file)
+        except FileNotFoundError:
+            with open("data.json", "w") as data_file:
+                # Dumps (writes) the new_data to the data.json file.
+                json.dump(new_data, data_file, indent=4)
+        else:
+            # Updates the existing data with the new_data.
+            data.update(new_data)
+
+            with open("data.json", "w") as data_file:
+                # Dumps (writes) the new_data to the data.json file.
+                json.dump(data, data_file, indent=4)
+        finally:
+            # Deletes the user info from the entries.
             website_entry.delete(0, "end")
             email_entry.delete(0, "end")
             password_entry.delete(0, "end")
+
     else:
+
+        # Error message if any fields are missing info.
         messagebox.showerror(title="MyPass | Password Manager", message="Error: All fields are required", icon="error")
 
 
@@ -48,7 +79,10 @@ def generate_password():
     # Joins the password_list and stores it in random_password.
     random_password = "".join(password_list)
 
+    # Inserts the password into the password entry
     password_entry.insert(0, random_password)
+
+    # Copies the password to the clipboard
     pyperclip.copy(random_password)
 
 
@@ -76,7 +110,6 @@ password_label = tkinter.Label(text="Password:")
 password_label.grid(row=3, column=0)
 
 # Entries
-
 # Creates a string instance, so we can store the user input.
 website = tkinter.StringVar()
 
