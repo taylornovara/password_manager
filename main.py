@@ -86,6 +86,10 @@ def generate_password():
     pyperclip.copy(random_password)
 
 
+def find_password():
+    pass
+
+
 # Creates our window instance and sets title.
 window = tkinter.Tk()
 window.title("MyPass | Password Manager")
@@ -114,8 +118,8 @@ password_label.grid(row=3, column=0)
 website = tkinter.StringVar()
 
 # User input is saved into the text variable as a string.
-website_entry = tkinter.Entry(width=37, textvariable=website)
-website_entry.grid(row=1, column=1, columnspan=2)
+website_entry = tkinter.Entry(width=21, textvariable=website)
+website_entry.grid(row=1, column=1)
 
 # Focuses the cursor in the website Entry.
 website_entry.focus()
@@ -135,6 +139,8 @@ password_entry = tkinter.Entry(width=21, textvariable=password, show="*")
 password_entry.grid(row=3, column=1)
 
 # Buttons
+search_button = tkinter.Button(text="Search", width=11, command=find_password)
+search_button.grid(row=1, column=2)
 generate_password_button = tkinter.Button(text="Generate Password", width=11, command=generate_password)
 generate_password_button.grid(row=3, column=2)
 add_button = tkinter.Button(text="Add", width=35, command=save_password)
