@@ -1,4 +1,4 @@
-"""A password generator using tkinter."""
+"""A password manager using tkinter."""
 
 import tkinter
 from tkinter import messagebox
