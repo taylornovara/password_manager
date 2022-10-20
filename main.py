@@ -12,11 +12,11 @@ import json
 def save_password():
     """Writes the user password to data.json file."""
 
-    # Creates a new dictionary with the user inputs.
+    # Creates a new dictionary with the user inputs in lowercase.
     new_data = {
-        website.get(): {
-            "email": email.get(),
-            "password": password.get()
+        website.get().lower(): {
+            "email": email.get().lower(),
+            "password": password.get().lower()
         }
     }
 
@@ -87,7 +87,48 @@ def generate_password():
 
 
 def find_password():
-    pass
+    """Searches our data.json file for existing accounts."""
+
+    # Saves user website input into search_website
+    search_website = website_entry.get().lower()
+
+    try:
+        # Opens data.json as data_file
+        with open("data.json") as data_file:
+
+            # Writes data_file into a dictionary and saves it into data
+            data = json.load(data_file)
+
+    except FileNotFoundError:
+        # Alerts user if account is not found in data
+        messagebox.showerror(title="MyPass | Password Manager", message="Account Not Found",
+                             icon="error")
+
+    else:
+
+        # Searches data for the user website
+        if search_website in data:
+            # Saves account email and password to variables
+            search_email = data[search_website]['email']
+            search_password = data[search_website]['password']
+
+            # Alerts user if account is found in data
+            messagebox.showinfo(title="MyPass | Password Manager",
+                                message=f"Account Found:\n "
+                                        f"Email/Username: {search_email}\n "
+                                        f"Password: {search_password}\n ",
+                                icon="info")
+
+            # Copies password to the Clipboard
+            pyperclip.copy(search_password)
+
+        else:
+
+            # Alerts user if account is not found in data
+            messagebox.showerror(title="MyPass | Password Manager", message=f"There are no details for "
+                                                                            f"{search_website.title()} found.\n"
+                                                                            f"Please add account.",
+                                 icon="error")
 
 
 # Creates our window instance and sets title.
@@ -108,7 +149,7 @@ window.iconphoto(False, icon)
 # Labels.
 website_label = tkinter.Label(text="Website:")
 website_label.grid(row=1, column=0)
-email_label = tkinter.Label(text="Email:")
+email_label = tkinter.Label(text="Email/Username:")
 email_label.grid(row=2, column=0)
 password_label = tkinter.Label(text="Password:")
 password_label.grid(row=3, column=0)
@@ -128,7 +169,7 @@ website_entry.focus()
 email = tkinter.StringVar()
 
 # User input is saved into the text variable as a string.
-email_entry = tkinter.Entry(width=37, textvariable=email)
+email_entry = tkinter.Entry(width=38, textvariable=email)
 email_entry.grid(row=2, column=1, columnspan=2)
 
 # Creates a string instance, so we can store the user input.
@@ -139,11 +180,11 @@ password_entry = tkinter.Entry(width=21, textvariable=password, show="*")
 password_entry.grid(row=3, column=1)
 
 # Buttons
-search_button = tkinter.Button(text="Search", width=11, command=find_password)
+search_button = tkinter.Button(text='Search', width=13, command=find_password)
 search_button.grid(row=1, column=2)
-generate_password_button = tkinter.Button(text="Generate Password", width=11, command=generate_password)
+generate_password_button = tkinter.Button(text="Generate Password", width=13, command=generate_password)
 generate_password_button.grid(row=3, column=2)
-add_button = tkinter.Button(text="Add", width=35, command=save_password)
+add_button = tkinter.Button(text="Add Account", width=36, command=save_password)
 add_button.grid(row=4, column=1, columnspan=2)
 
 # Keeps program window open.
