@@ -16,7 +16,7 @@ def save_password():
     new_data = {
         website.get().lower(): {
             "email": email.get().lower(),
-            "password": password.get().lower()
+            "password": password.get()
         }
     }
 
